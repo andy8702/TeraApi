@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zy.tera.fragments.BasicInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/basicinfo"
+            style="@style/itemstyle_20sp_black" />
+
+        <TextView
+            android:id="@+id/basic_cardno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basicinfo_cardno" />
+
+        <TextView
+            android:id="@+id/basic_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basicinfo_name" />
+
+        <TextView
+            android:id="@+id/basic_expire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/basicinfo_expire" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            style="@style/itemstyle_20sp_black"
+            android:text="@string/availableshop" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+</FrameLayout>

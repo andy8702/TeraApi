@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">一兆韦德接口调取</string>
+    <string name="basicinfo">基本信息</string>
+    <string name="basicinfo_cardno">卡号： %1$s</string>
+    <string name="basicinfo_name">姓名： %1$s</string>
+    <string name="basicinfo_expire">有效期： %1$s</string>
+    <string name="availableshop">可选择门店：</string>
+
+    <string name="open">开</string>
+    <string name="close">关</string>
+
+    <string name="loading">正在加载...</string>
+
+    <string name="onedayonecourse">当天某一课程所有排课</string>
+    <string name="onedayonecourse2">当天单课查询</string>
+
+</resources>
