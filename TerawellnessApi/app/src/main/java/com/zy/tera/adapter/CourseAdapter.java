@@ -46,7 +46,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         holder.courseName.setText(row.coursename);
         holder.courseTrainer.setText(row.coachname);
-        holder.CourseTimeAddr.setText(row.clubname+" "+row.begintime+"-" + row.endtime);
+        holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+row.begintime+"-" + row.endtime+")");
     }
 
     @Override

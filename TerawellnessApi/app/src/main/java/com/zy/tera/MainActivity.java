@@ -7,16 +7,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.zy.tera.fragments.BasicInfoFragment;
 import com.zy.tera.fragments.OneCourseFragment;
+import com.zy.tera.fragments.SearchCoachFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // 抽屉菜单对象
     public DrawerLayout drawerLayout;
     private RelativeLayout main_left_drawer_layout;
+    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -28,19 +31,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initLayout() {
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
-
-        //设置菜单内容之外其他区域的背景色
         drawerLayout.setScrimColor(Color.TRANSPARENT);
-
-        //左边菜单
         main_left_drawer_layout = (RelativeLayout) findViewById(R.id.main_left_drawer_layout);
 
-//        changeFragment(new BasicInfoFragment());
+        btnBasicInfo = findViewById(R.id.menu_basicinfo);
+        btnBasicInfo.setOnClickListener(this);
+        btnOneDayCourse = findViewById(R.id.menu_onedayonecourse);
+        btnOneDayCourse.setOnClickListener(this);
+        btnSearchCoach = findViewById(R.id.menu_search_coach_course);
+        btnSearchCoach.setOnClickListener(this);
 
-        changeFragment(new OneCourseFragment());
+        changeFragment(new SearchCoachFragment());
     }
 
-    public void changeFragment(Fragment newFragment){
+    public void changeFragment(Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFragment, newFragment);
         transaction.addToBackStack(null);
@@ -58,13 +62,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.menu_basicinfo:
                 changeFragment(new BasicInfoFragment());
                 break;
 
             case R.id.menu_onedayonecourse:
                 changeFragment(new OneCourseFragment());
+                break;
+
+            case R.id.menu_search_coach_course:
+                changeFragment(new SearchCoachFragment());
                 break;
 
             default:
