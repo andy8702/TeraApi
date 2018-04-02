@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@mipmap/shopaddress"/>
+
+    <LinearLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_tv"
+            style="@style/itemstyle_18sp_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="name" />
+
+        <TextView
+            android:id="@+id/item_addr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="addr" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_item_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/itemstyle_14sp_white"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/tel"/>
+
+</LinearLayout>

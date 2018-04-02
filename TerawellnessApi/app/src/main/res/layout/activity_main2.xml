@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
@@ -52,29 +53,40 @@
                 android:layout_marginBottom="5dp"
                 />
 
-            <Button
-                android:id="@+id/menu_basicinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/itemstyle"
-                android:layout_centerInParent="true"
-                android:text="@string/basicinfo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/menu_onedayonecourse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="@style/itemstyle"
-                android:text="@string/onedayonecourse2" />
+                <Button
+                    android:id="@+id/menu_search_coach_course"
+                    style="@style/itemstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_coach_course" />
 
-            <Button
-                android:id="@+id/menu_search_coach_course"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="@style/itemstyle"
-                android:text="@string/search_coach_course" />
+                <Button
+                    android:id="@+id/menu_search_shop"
+                    style="@style/itemstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_shop" />
+
+                <Button
+                    android:id="@+id/menu_onedayonecourse"
+                    style="@style/itemstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onedayonecourse2" />
+
+                <Button
+                    android:id="@+id/menu_basicinfo"
+                    style="@style/itemstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basicinfo" />
+            </LinearLayout>
 
         </LinearLayout>
 

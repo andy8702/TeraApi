@@ -1,12 +1,18 @@
 package com.zy.tera.controller;
 
+import android.text.TextUtils;
+
 import com.zy.tera.DataAPIService;
 import com.zy.tera.ServiceBuilder;
 import com.zy.tera.response.CoachResponse;
 import com.zy.tera.response.ControllerInterface;
+import com.zy.tera.response.CourseDetailResponse;
 import com.zy.tera.response.CourseResponse;
 import com.zy.tera.response.CourseTypeResponse;
 import com.zy.tera.response.TypeCourseResponse;
+import com.zy.tera.utils.TimeUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +34,35 @@ public class CourseController {
         if (null == service) {
             service = ServiceBuilder.getInstance();
         }
+    }
+
+    public void getCoursebyShop(String clubid,String date,final ControllerInterface callback){
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("app", "a");
+        parameters.put("page", "1");
+        parameters.put("rows", "10");
+        parameters.put("clubid", clubid);//上海广场2494
+        if (TextUtils.isEmpty(date)){
+            parameters.put("date", TimeUtils.getTodayDate());
+        }else{
+            parameters.put("date", date);
+        }
+        parameters.put("coursename", "");
+
+
+        Call courseCall = ServiceBuilder.getInstance().searchCoursebyShop(parameters);
+        courseCall.enqueue(new Callback<CourseDetailResponse>(){
+
+            @Override
+            public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
+                callback.onResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<CourseDetailResponse> call, Throwable t) {
+                callback.onError(t.toString());
+            }
+        });
     }
 
     public void getCoursebyCoachName(String name,final ControllerInterface callback){

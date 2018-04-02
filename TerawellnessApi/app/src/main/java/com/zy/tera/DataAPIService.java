@@ -4,6 +4,7 @@ package com.zy.tera;
 import com.zy.tera.response.ApmtedCourseResponse;
 import com.zy.tera.response.AppointmentResponse;
 import com.zy.tera.response.CoachResponse;
+import com.zy.tera.response.CourseBookResponse;
 import com.zy.tera.response.CourseDetailResponse;
 import com.zy.tera.response.CourseResponse;
 import com.zy.tera.response.CourseTypeResponse;
@@ -13,12 +14,11 @@ import com.zy.tera.response.ShopDetailsResponse;
 import com.zy.tera.response.ShopResponse;
 import com.zy.tera.response.TypeCourseResponse;
 
+import java.util.Map;
+
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
-
-import java.util.Map;
 
 public interface DataAPIService {
 
@@ -57,4 +57,8 @@ public interface DataAPIService {
 
     @POST("app/order/selectgroupoperateinfo")
     Call<ApmtedCourseResponse> getApmtedCourse(@QueryMap Map<String, String> parameters);
+
+    @POST("app/groupoperat/selectcourseappointment")
+    Call<CourseBookResponse> bookCourse(@QueryMap Map<String, String> parameters);
+
 }

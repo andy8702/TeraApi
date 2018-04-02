@@ -83,7 +83,7 @@ import java.util.List;
 }
  */
 
-public class CourseDetailResponse extends BaseResponse{
+public class CourseBookResponse extends BaseResponse{
 
 
     public String recordsTotal;
@@ -94,7 +94,7 @@ public class CourseDetailResponse extends BaseResponse{
     public String status;
     public String error;
     public String msg;
-    public List<CourseDetailInfo> data;
+    public CourseDetailInfo data;
 
     public class CourseDetailInfo {
 

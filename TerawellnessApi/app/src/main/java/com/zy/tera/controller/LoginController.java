@@ -6,6 +6,7 @@ import com.zy.tera.ServiceBuilder;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.LoginResponse;
 import com.zy.tera.response.MembershipResponse;
+import com.zy.tera.response.ShopDetailsResponse;
 import com.zy.tera.response.ShopResponse;
 import com.zy.tera.utils.TimeUtils;
 
@@ -92,6 +93,31 @@ public class LoginController {
 
             @Override
             public void onFailure(Call<ShopResponse> call, Throwable t) {
+                callback.onError(t.toString());
+            }
+        });
+    }
+
+    public void loadSearchShop(String name,final ControllerInterface callback){
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("app", "a");
+        parameters.put("page", "1");
+        parameters.put("rows", "10");
+        parameters.put("lat", "4.9E-324");
+        parameters.put("lon", "4.9E-324");
+        parameters.put("clubname", name);
+
+        Call shopCall = ServiceBuilder.getInstance().searchShop(parameters);
+
+        shopCall.enqueue(new Callback<ShopDetailsResponse>(){
+
+            @Override
+            public void onResponse(Call<ShopDetailsResponse> call, Response<ShopDetailsResponse> response) {
+                callback.onResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopDetailsResponse> call, Throwable t) {
                 callback.onError(t.toString());
             }
         });

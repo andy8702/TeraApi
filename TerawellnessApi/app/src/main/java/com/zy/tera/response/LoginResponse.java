@@ -255,6 +255,7 @@ public class LoginResponse extends BaseResponse {
             private int genderprivate;
             private String headimg;
             private String height;
+            private String id;
             private int idprivate;
             private int initscoreprivate;
             private String isdelete;
@@ -280,6 +281,14 @@ public class LoginResponse extends BaseResponse {
             private String weight;
             private String wxheadimg;
             private String wxopenid;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
 
             public String getAvatar() {
                 return avatar;

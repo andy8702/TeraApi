@@ -11,15 +11,21 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.zy.tera.fragments.BasicInfoFragment;
+import com.zy.tera.fragments.FragmentListener;
 import com.zy.tera.fragments.OneCourseFragment;
 import com.zy.tera.fragments.SearchCoachFragment;
+import com.zy.tera.fragments.ShopCourseFragment;
+import com.zy.tera.fragments.ShopSearchFragment;
+import com.zy.tera.response.ShopDetailsResponse;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,FragmentListener {
+
+    public static int COMMOND_SHOP_COURSES = 1;
 
     // 抽屉菜单对象
     public DrawerLayout drawerLayout;
     private RelativeLayout main_left_drawer_layout;
-    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach;
+    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach,btnShopSearch;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -40,13 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnOneDayCourse.setOnClickListener(this);
         btnSearchCoach = findViewById(R.id.menu_search_coach_course);
         btnSearchCoach.setOnClickListener(this);
+        btnShopSearch =  findViewById(R.id.menu_search_shop);
+        btnShopSearch.setOnClickListener(this);
 
-        changeFragment(new SearchCoachFragment());
+        btnBasicInfo.performClick();
     }
 
     public void changeFragment(Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFragment, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void addFragment(Fragment newFragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.mainFragment, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -75,7 +90,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 changeFragment(new SearchCoachFragment());
                 break;
 
+            case R.id.menu_search_shop:
+                ShopSearchFragment fragment = new ShopSearchFragment();
+                fragment.setFragmentListener(this);
+                changeFragment(fragment);
+                break;
+
             default:
+        }
+    }
+
+
+    @Override
+    public void onReceive(int commond, Object obj) {
+        if (COMMOND_SHOP_COURSES == commond){
+            ShopDetailsResponse.ShopDetailInfo.Rows item = (ShopDetailsResponse.ShopDetailInfo.Rows)obj;
+
+            Bundle bundle = new Bundle();
+            bundle.putString(ShopCourseFragment.KEY_CLUBID,item.id);
+
+            ShopCourseFragment fragment = new ShopCourseFragment();
+            fragment.setArguments(bundle);
+
+            addFragment(fragment);
         }
     }
 }
