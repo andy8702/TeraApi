@@ -17,6 +17,8 @@ public class TeraApplication extends Application{
     public MembershipResponse membershipResponse;
     public ShopResponse shopInfo;
 
+    public static boolean isUseSpecialBook = true;
+
     public void setLoginInfo(LoginResponse loginResponse){
         this.loginResponse = loginResponse;
         Log.d("app",loginResponse.toString());

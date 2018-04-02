@@ -109,21 +109,39 @@ public class ShopCourseFragment extends BaseFragment {
                 loadingProgressDialog(R.string.loading);
 
                 //courseid, userid, mobile,membercode
-                bookController.makeAppointment(item.id, userid, mobile,membercode, new ControllerInterface() {
-                    @Override
-                    public void onResult(Object obj) {
-                        dismissLoading();
-                        BookResultResponse res = (BookResultResponse)obj;
+                if (TeraApplication.isUseSpecialBook){
+                    bookController.bookCourese(item.id, userid, mobile,membercode, new ControllerInterface() {
+                        @Override
+                        public void onResult(Object obj) {
+                            dismissLoading();
+                            BookResultResponse res = (BookResultResponse)obj;
 
-                        showAlertDialog(res.p_msg);
-                    }
+                            showAlertDialog(res.p_msg);
+                        }
 
-                    @Override
-                    public void onError(String msg) {
-                        dismissLoading();
-                        showToast(msg);
-                    }
-                });
+                        @Override
+                        public void onError(String msg) {
+                            dismissLoading();
+                            showToast(msg);
+                        }
+                    });
+                }else{
+                    bookController.makeAppointment(item.id, userid, mobile,membercode, new ControllerInterface() {
+                        @Override
+                        public void onResult(Object obj) {
+                            dismissLoading();
+                            BookResultResponse res = (BookResultResponse)obj;
+
+                            showAlertDialog(res.p_msg);
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                            dismissLoading();
+                            showToast(msg);
+                        }
+                    });
+                }
             }
         });
 

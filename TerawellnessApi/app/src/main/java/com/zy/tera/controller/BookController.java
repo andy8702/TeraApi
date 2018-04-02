@@ -55,8 +55,16 @@ public class BookController {
 
     }
 
-    private void bookCourese(final String courseid, final String userid,final String mobile,final String membercode,
+    public void bookCourese(final String courseid, final String userid,final String mobile,final String membercode,
                              final ControllerInterface callback){
+        if (null == service) {
+            service = ServiceBuilder.getInstance();
+        }
+
+        if (null == callback){
+            throw new IllegalArgumentException("no callback");
+        }
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("opid", courseid);
         parameters.put("coursetype", "1");
