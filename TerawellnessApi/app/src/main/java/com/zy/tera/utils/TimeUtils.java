@@ -41,7 +41,7 @@ public class TimeUtils {
         /*用Calendar的get(int field)方法返回给定日历字段的值。
         HOUR 用于 12 小时制时钟 (0 - 11)，HOUR_OF_DAY 用于 24 小时制时钟。*/
         int year = rightNow.get(Calendar.YEAR);
-        int month = rightNow.get(Calendar.MONTH) + 1; //第一个月从0开始，所以得到月份＋1
+        int month = rightNow.get(Calendar.MONTH);
         int day = rightNow.get(rightNow.DAY_OF_MONTH);
 
         int[] date = new int[3];
@@ -53,17 +53,24 @@ public class TimeUtils {
     }
 
     public static String formateYYYYMMDD(int YYYY,int MM,int DD){
-        String M = ""+MM;
-        String D = ""+DD;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(YYYY+"-");
 
-        if (MM<10){
-            M = "0"+MM;
+        int M = MM+1;
+        int D = DD;
+
+        if (M<10){
+            stringBuffer.append("0"+M+"-");
+        }else{
+            stringBuffer.append(M+"-");
         }
 
-        if (DD<10){
-            D = "0"+DD;
+        if (D<10){
+            stringBuffer.append("0"+D);
+        }else{
+            stringBuffer.append(D);
         }
 
-        return YYYY+"-"+M+"-"+D;
+        return stringBuffer.toString();
     }
 }
