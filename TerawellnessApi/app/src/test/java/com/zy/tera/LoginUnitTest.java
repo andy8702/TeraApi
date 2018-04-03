@@ -28,8 +28,8 @@ public class LoginUnitTest {
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
-        parameters.put("phone", "13524284562");
-        parameters.put("cardid", "13524284562");
+        parameters.put("phone", TeraApplication.LOGINID);
+        parameters.put("cardid", TeraApplication.LOGINID);
         parameters.put("pwd", "5EDF3A560E2F7A3A2ECF979A598805C6");
         parameters.put("oldUser", "");
 
