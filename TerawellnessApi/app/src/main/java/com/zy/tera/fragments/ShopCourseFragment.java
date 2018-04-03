@@ -1,14 +1,18 @@
 package com.zy.tera.fragments;
 
 
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 
 import com.zy.tera.R;
@@ -28,7 +32,7 @@ import com.zy.tera.utils.TimeUtils;
 public class ShopCourseFragment extends BaseFragment {
 
 
-    public static String KEY_CLUBID ="clubid";
+    public static String KEY_CLUBID = "clubid";
 
     private Button btnChooser;
     private ListView listView;
@@ -38,7 +42,8 @@ public class ShopCourseFragment extends BaseFragment {
     private CourseController courseController;
     private BookController bookController;
 
-    public ShopCourseFragment() {}
+    public ShopCourseFragment() {
+    }
 
 
     @Override
@@ -60,24 +65,35 @@ public class ShopCourseFragment extends BaseFragment {
         btnChooser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int[] date = TimeUtils.getYYYYMMDD();
 
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        String date = TimeUtils.formateYYYYMMDD(i, i1, i2);
+                        btnChooser.setText(date);
+                        loadCourseData(date);
+                    }
+                }, date[0], date[1], date[2]);
+
+                dialog.show();
             }
         });
 
-        if (!TextUtils.isEmpty(clubId)){
+        if (!TextUtils.isEmpty(clubId)) {
             loadCourseData(null);
         }
 
     }
 
-    public void loadCourseData(String date){
+    public void loadCourseData(String date) {
         loadingProgressDialog(R.string.loading);
         courseController = new CourseController();
         courseController.getCoursebyShop(clubId, date, new ControllerInterface() {
             @Override
             public void onResult(Object obj) {
                 dismissLoading();
-                CourseDetailResponse response = (CourseDetailResponse)obj;
+                CourseDetailResponse response = (CourseDetailResponse) obj;
                 buildResultView(response);
             }
 
@@ -89,17 +105,17 @@ public class ShopCourseFragment extends BaseFragment {
         });
     }
 
-    public void buildResultView(CourseDetailResponse response){
-        ShopCourseAdapter adapter = new ShopCourseAdapter(getContext(),response.data);
+    public void buildResultView(CourseDetailResponse response) {
+        ShopCourseAdapter adapter = new ShopCourseAdapter(getContext(), response.data);
 
         adapter.setOnClickListener(new ShopCourseAdapter.OnClickListener() {
             @Override
             public void onItemClick(CourseDetailResponse.CourseDetailInfo item) {
-                if (null == bookController){
+                if (null == bookController) {
                     bookController = new BookController();
                 }
 
-                TeraApplication app = (TeraApplication)(getActivity().getApplication());
+                TeraApplication app = (TeraApplication) (getActivity().getApplication());
 
                 String userid = app.loginResponse.getData().getRows().getId();
                 String mobile = app.loginResponse.getData().getRows().getTelephone();
@@ -109,12 +125,12 @@ public class ShopCourseFragment extends BaseFragment {
                 loadingProgressDialog(R.string.loading);
 
                 //courseid, userid, mobile,membercode
-                if (TeraApplication.isUseSpecialBook){
-                    bookController.bookCourese(item.id, userid, mobile,membercode, new ControllerInterface() {
+                if (TeraApplication.isUseSpecialBook) {
+                    bookController.bookCourese(item.id, userid, mobile, membercode, new ControllerInterface() {
                         @Override
                         public void onResult(Object obj) {
                             dismissLoading();
-                            BookResultResponse res = (BookResultResponse)obj;
+                            BookResultResponse res = (BookResultResponse) obj;
 
                             showAlertDialog(res.p_msg);
                         }
@@ -125,12 +141,12 @@ public class ShopCourseFragment extends BaseFragment {
                             showToast(msg);
                         }
                     });
-                }else{
-                    bookController.makeAppointment(item.id, userid, mobile,membercode, new ControllerInterface() {
+                } else {
+                    bookController.makeAppointment(item.id, userid, mobile, membercode, new ControllerInterface() {
                         @Override
                         public void onResult(Object obj) {
                             dismissLoading();
-                            BookResultResponse res = (BookResultResponse)obj;
+                            BookResultResponse res = (BookResultResponse) obj;
 
                             showAlertDialog(res.p_msg);
                         }

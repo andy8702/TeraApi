@@ -3,6 +3,7 @@ package com.zy.tera.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -13,7 +14,7 @@ import java.util.Locale;
 public class TimeUtils {
 
     public static boolean isValidCard(String date) {
-        java.util.Date nowdate=new java.util.Date();
+        java.util.Date nowdate = new java.util.Date();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         Date d = null;
@@ -23,15 +24,46 @@ public class TimeUtils {
             e.printStackTrace();
         }
         boolean flag = d.before(nowdate);
-        if(flag)
+        if (flag)
             return false;
         else
             return true;
     }
 
-    public static String getTodayDate(){
-        Date day=new Date();
+    public static String getTodayDate() {
+        Date day = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(day);
+    }
+
+    public static int[] getYYYYMMDD() {
+        Calendar rightNow = Calendar.getInstance();
+        /*用Calendar的get(int field)方法返回给定日历字段的值。
+        HOUR 用于 12 小时制时钟 (0 - 11)，HOUR_OF_DAY 用于 24 小时制时钟。*/
+        int year = rightNow.get(Calendar.YEAR);
+        int month = rightNow.get(Calendar.MONTH) + 1; //第一个月从0开始，所以得到月份＋1
+        int day = rightNow.get(rightNow.DAY_OF_MONTH);
+
+        int[] date = new int[3];
+        date[0] = year;
+        date[1] = month;
+        date[2] = day;
+
+        return date;
+    }
+
+    public static String formateYYYYMMDD(int YYYY,int MM,int DD){
+        String M = ""+MM;
+        String D = ""+DD;
+
+        if (MM<10){
+            M = "0"+MM;
+        }
+
+        if (DD<10){
+            D = "0"+DD;
+        }
+
+        return YYYY+"-"+M+"-"+D;
     }
 }
