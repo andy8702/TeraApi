@@ -23,13 +23,40 @@ public class BookController {
 
     BookAPIService bookService;
 
-    public void makeAppointment(final String courseid, final String userid,final String mobile,final String membercode,
-                           final ControllerInterface callback){
+    public void cancelBook(String p_reservation_id, final ControllerInterface callback) {
+        if (null == bookService) {
+            bookService = BookServiceBuilder.getInstance();
+        }
+
+        if (null == callback) {
+            throw new IllegalArgumentException("no callback");
+        }
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("p_reservation_id", p_reservation_id);
+
+        Call bookCall = bookService.cancelBook(parameters);
+        bookCall.enqueue(new Callback<BookResultResponse>() {
+            @Override
+            public void onResponse(Call<BookResultResponse> call, Response<BookResultResponse> response) {
+                callback.onResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BookResultResponse> call, Throwable t) {
+                callback.onError(t.toString());
+            }
+        });
+    }
+
+
+    public void makeAppointment(final String courseid, final String userid, final String mobile, final String membercode,
+                                final ControllerInterface callback) {
         if (null == service) {
             service = ServiceBuilder.getInstance();
         }
 
-        if (null == callback){
+        if (null == callback) {
             throw new IllegalArgumentException("no callback");
         }
 
@@ -44,7 +71,7 @@ public class BookController {
 
             @Override
             public void onResponse(Call<CourseBookResponse> call, Response<CourseBookResponse> response) {
-                bookCourese(courseid,userid,mobile,membercode,callback);
+                bookCourese(courseid, userid, mobile, membercode, callback);
             }
 
             @Override
@@ -55,13 +82,13 @@ public class BookController {
 
     }
 
-    public void bookCourese(final String courseid, final String userid,final String mobile,final String membercode,
-                             final ControllerInterface callback){
+    public void bookCourese(final String courseid, final String userid, final String mobile, final String membercode,
+                            final ControllerInterface callback) {
         if (null == service) {
             service = ServiceBuilder.getInstance();
         }
 
-        if (null == callback){
+        if (null == callback) {
             throw new IllegalArgumentException("no callback");
         }
 
@@ -77,7 +104,7 @@ public class BookController {
             @Override
             public void onResponse(Call<CourseBookResponse> call, Response<CourseBookResponse> response) {
                 String sourceid = response.body().data.sourceId;
-                book(sourceid,membercode,mobile,callback);
+                book(sourceid, membercode, mobile, callback);
             }
 
             @Override
@@ -87,12 +114,12 @@ public class BookController {
         });
     }
 
-    private void book(String sourceid,String membercode,String mobile,final ControllerInterface callback){
+    private void book(String sourceid, String membercode, String mobile, final ControllerInterface callback) {
         if (null == bookService) {
             bookService = BookServiceBuilder.getInstance();
         }
 
-        if (null == callback){
+        if (null == callback) {
             throw new IllegalArgumentException("no callback");
         }
 
@@ -103,8 +130,8 @@ public class BookController {
 
         Call call = bookService.book(parameters);
 
-        Log.d("test",call.request().url().toString());
-        call.enqueue(new Callback<BookResultResponse>(){
+        Log.d("test", call.request().url().toString());
+        call.enqueue(new Callback<BookResultResponse>() {
 
             @Override
             public void onResponse(Call<BookResultResponse> call, Response<BookResultResponse> response) {

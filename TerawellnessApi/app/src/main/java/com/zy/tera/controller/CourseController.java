@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.zy.tera.DataAPIService;
 import com.zy.tera.ServiceBuilder;
+import com.zy.tera.response.ApmtedCourseResponse;
 import com.zy.tera.response.CoachResponse;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.CourseDetailResponse;
@@ -30,28 +31,51 @@ public class CourseController {
 
     DataAPIService service;
 
-    public CourseController(){
+    public CourseController() {
         if (null == service) {
             service = ServiceBuilder.getInstance();
         }
     }
 
-    public void getCoursebyShop(String clubid,String date,final ControllerInterface callback){
+    public void getAptedCourse(String userid, final ControllerInterface callback) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("userid", userid);
+        parameters.put("pageNum", "1");
+        parameters.put("numPerPage", "10");
+
+
+        Call makeCall = ServiceBuilder.getInstance().getApmtedCourse(parameters);
+
+        makeCall.enqueue(new Callback<ApmtedCourseResponse>() {
+
+            @Override
+            public void onResponse(Call<ApmtedCourseResponse> call, Response<ApmtedCourseResponse> response) {
+                callback.onResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ApmtedCourseResponse> call, Throwable t) {
+                callback.onError(t.toString());
+            }
+        });
+    }
+
+    public void getCoursebyShop(String clubid, String date, final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("page", "1");
         parameters.put("rows", "10");
         parameters.put("clubid", clubid);//上海广场2494
-        if (TextUtils.isEmpty(date)){
+        if (TextUtils.isEmpty(date)) {
             parameters.put("date", TimeUtils.getTodayDate());
-        }else{
+        } else {
             parameters.put("date", date);
         }
         parameters.put("coursename", "");
 
 
         Call courseCall = ServiceBuilder.getInstance().searchCoursebyShop(parameters);
-        courseCall.enqueue(new Callback<CourseDetailResponse>(){
+        courseCall.enqueue(new Callback<CourseDetailResponse>() {
 
             @Override
             public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
@@ -65,7 +89,7 @@ public class CourseController {
         });
     }
 
-    public void getCoursebyCoachName(String name,final ControllerInterface callback){
+    public void getCoursebyCoachName(String name, final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("name", name);
@@ -74,7 +98,7 @@ public class CourseController {
         coachCall.enqueue(new Callback<CoachResponse>() {
             @Override
             public void onResponse(Call<CoachResponse> call, Response<CoachResponse> response) {
-                getCoursebyCoachId(response.body().data.rows.get(0).id.toString(),callback);
+                getCoursebyCoachId(response.body().data.rows.get(0).id.toString(), callback);
             }
 
             @Override
@@ -86,7 +110,7 @@ public class CourseController {
 
     }
 
-    private void getCoursebyCoachId(String coachid,final ControllerInterface callback){
+    private void getCoursebyCoachId(String coachid, final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("page", "1");
@@ -98,7 +122,7 @@ public class CourseController {
 
         Call courseCall = ServiceBuilder.getInstance().getCourseInfoByCoach(parameters);
 
-        courseCall.enqueue(new Callback<CourseResponse>(){
+        courseCall.enqueue(new Callback<CourseResponse>() {
 
             @Override
             public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
@@ -113,7 +137,7 @@ public class CourseController {
     }
 
     public void getCourseInfobyName(String courseid,
-                                    final ControllerInterface callback){
+                                    final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("page", "1");
@@ -124,7 +148,7 @@ public class CourseController {
 
 
         Call courseCall = ServiceBuilder.getInstance().getCourseInfoByName(parameters);
-        courseCall.enqueue(new Callback<CourseResponse>(){
+        courseCall.enqueue(new Callback<CourseResponse>() {
 
             @Override
             public void onResponse(Call<CourseResponse> call, Response<CourseResponse> response) {
@@ -139,7 +163,7 @@ public class CourseController {
     }
 
     public void getCourseByType(CourseTypeResponse.CourseTypeInfo.Rows item,
-                                final ControllerInterface callback){
+                                final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("tid", item.id);
@@ -161,8 +185,7 @@ public class CourseController {
     }
 
 
-
-    public void loadCourseType(final ControllerInterface callback){
+    public void loadCourseType(final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
 

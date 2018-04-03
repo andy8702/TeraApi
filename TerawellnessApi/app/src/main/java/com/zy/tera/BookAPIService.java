@@ -12,4 +12,7 @@ public interface BookAPIService {
 
     @GET("yzwderpserver/erp/coursereservation?")
     Call<BookResultResponse> book(@QueryMap Map<String, String> parameters);
+
+    @GET("yzwderpserver/erp/coursereservationcancel?")
+    Call<BookResultResponse> cancelBook(@QueryMap Map<String, String> parameters);
 }

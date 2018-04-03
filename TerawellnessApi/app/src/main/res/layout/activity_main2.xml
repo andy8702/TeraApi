@@ -60,6 +60,13 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/menu_basicinfo"
+                    style="@style/itemstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basicinfo" />
+
+                <Button
                     android:id="@+id/menu_search_coach_course"
                     style="@style/itemstyle"
                     android:layout_width="match_parent"
@@ -81,11 +88,13 @@
                     android:text="@string/onedayonecourse2" />
 
                 <Button
-                    android:id="@+id/menu_basicinfo"
+                    android:id="@+id/menu_myappointment"
                     style="@style/itemstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/basicinfo" />
+                    android:text="@string/my_appointment" />
+
+
             </LinearLayout>
 
         </LinearLayout>

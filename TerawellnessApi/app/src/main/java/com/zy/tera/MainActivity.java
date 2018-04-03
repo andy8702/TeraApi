@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.zy.tera.fragments.BasicInfoFragment;
 import com.zy.tera.fragments.FragmentListener;
+import com.zy.tera.fragments.MyAppointmentFragment;
 import com.zy.tera.fragments.OneCourseFragment;
 import com.zy.tera.fragments.SearchCoachFragment;
 import com.zy.tera.fragments.ShopCourseFragment;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 抽屉菜单对象
     public DrawerLayout drawerLayout;
     private RelativeLayout main_left_drawer_layout;
-    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach,btnShopSearch;
+    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach,btnShopSearch,btnMyAptmnt;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSearchCoach.setOnClickListener(this);
         btnShopSearch =  findViewById(R.id.menu_search_shop);
         btnShopSearch.setOnClickListener(this);
+        btnMyAptmnt =  findViewById(R.id.menu_myappointment);
+        btnMyAptmnt.setOnClickListener(this);
 
         btnBasicInfo.performClick();
     }
@@ -77,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        drawerLayout.closeDrawers();
+
         switch (view.getId()) {
             case R.id.menu_basicinfo:
                 changeFragment(new BasicInfoFragment());
@@ -94,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ShopSearchFragment fragment = new ShopSearchFragment();
                 fragment.setFragmentListener(this);
                 changeFragment(fragment);
+                break;
+
+            case R.id.menu_myappointment:
+                changeFragment(new MyAppointmentFragment());
                 break;
 
             default:

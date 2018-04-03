@@ -13,6 +13,8 @@
     <string name="choose_date">选择日期</string>
     <string name="book">预约</string>
     <string name="confrim">确定</string>
+    <string name="cancel_app">取消预约</string>
+    <string name="canceled">已预约</string>
 
     <string name="book_success">预约成功</string>
 
@@ -26,6 +28,7 @@
     <string name="onedayonecourse2">当天单课查询</string>
     <string name="search_coach_course">根据教练查课</string>
     <string name="search_shop">查询店铺课程</string>
+    <string name="my_appointment">我的预约</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
