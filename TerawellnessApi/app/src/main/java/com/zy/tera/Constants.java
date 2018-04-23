@@ -5,4 +5,5 @@ public class Constants {
     public static String BOOK_BASEURL= "http://180.169.65.108:8081/";
 
     public static String DEV1= "http://180.169.65.108:8081/";
+    public static String DEV2= "http://180.169.65.108:8081/";
 }
