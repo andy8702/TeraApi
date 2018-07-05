@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnMyAptmnt =  findViewById(R.id.menu_myappointment);
         btnMyAptmnt.setOnClickListener(this);
 
-        btnBasicInfo.performClick();
+        btnOneDayCourse.performClick();
     }
 
     public void changeFragment(Fragment newFragment) {
