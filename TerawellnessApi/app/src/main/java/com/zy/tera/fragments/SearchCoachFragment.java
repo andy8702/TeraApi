@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import com.zy.tera.R;
 import com.zy.tera.adapter.CourseAdapter;
-import com.zy.tera.controller.CourseController;
+import com.zy.tera.controller.CoursePresenter;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.CourseResponse;
 
@@ -31,7 +31,7 @@ public class SearchCoachFragment extends BaseFragment {
     private CourseAdapter resultAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private CourseController courseController;
+    private CoursePresenter courseController;
 
 
     public SearchCoachFragment() {
@@ -65,7 +65,7 @@ public class SearchCoachFragment extends BaseFragment {
 
     public void buildCourseData(){
         loadingProgressDialog(R.string.loading);
-        courseController = new CourseController();
+        courseController = new CoursePresenter(this);
         courseController.getCoursebyCoachName(editText.getText().toString().trim(),
                 new ControllerInterface() {
                     @Override

@@ -3,7 +3,9 @@ package com.zy.tera.controller;
 import android.text.TextUtils;
 
 import com.zy.tera.DataAPIService;
+import com.zy.tera.R;
 import com.zy.tera.ServiceBuilder;
+import com.zy.tera.fragments.IFragment;
 import com.zy.tera.response.ApmtedCourseResponse;
 import com.zy.tera.response.CoachResponse;
 import com.zy.tera.response.ControllerInterface;
@@ -13,12 +15,17 @@ import com.zy.tera.response.CourseTypeResponse;
 import com.zy.tera.response.TypeCourseResponse;
 import com.zy.tera.utils.TimeUtils;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,14 +34,16 @@ import retrofit2.Response;
  * Created by yz250242 on 2018/3/29.
  */
 
-public class CourseController {
+public class CoursePresenter {
 
     DataAPIService service;
+    IFragment view;
 
-    public CourseController() {
+    public CoursePresenter(IFragment view) {
         if (null == service) {
             service = ServiceBuilder.getInstance();
         }
+        this.view = view;
     }
 
     public void getAptedCourse(String userid, final ControllerInterface callback) {
@@ -189,18 +198,37 @@ public class CourseController {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
 
-        Call call = ServiceBuilder.getInstance().getCourseType(parameters);
+        DataAPIService service = ServiceBuilder.getInstance();
+        service.getCourseType(parameters)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        view.dismissLoading();
+                    }
+                })
+                .subscribe(new Subscriber<CourseTypeResponse>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        view.loadingProgressDialog(R.string.loading);
+                        s.request(Long.MAX_VALUE);
+                    }
 
-        call.enqueue(new Callback<CourseTypeResponse>() {
-            @Override
-            public void onResponse(Call<CourseTypeResponse> call, Response<CourseTypeResponse> response) {
-                callback.onResult(response.body());
-            }
+                    @Override
+                    public void onNext(CourseTypeResponse courseTypeResponse) {
+                        callback.onResult(courseTypeResponse);
+                    }
 
-            @Override
-            public void onFailure(Call<CourseTypeResponse> call, Throwable t) {
-                callback.onError(t.toString());
-            }
-        });
+                    @Override
+                    public void onError(Throwable t) {
+                        callback.onError(t.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

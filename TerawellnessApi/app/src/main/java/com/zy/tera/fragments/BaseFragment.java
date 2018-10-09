@@ -14,7 +14,7 @@ import com.zy.tera.R;
  * Created by yz250242 on 2018/3/29.
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements IFragment{
 
     ProgressDialog dialog = null;
 

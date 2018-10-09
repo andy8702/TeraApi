@@ -2,10 +2,8 @@ package com.zy.tera.fragments;
 
 
 import android.app.DatePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,7 +17,7 @@ import com.zy.tera.R;
 import com.zy.tera.TeraApplication;
 import com.zy.tera.adapter.ShopCourseAdapter;
 import com.zy.tera.controller.BookController;
-import com.zy.tera.controller.CourseController;
+import com.zy.tera.controller.CoursePresenter;
 import com.zy.tera.response.BookResultResponse;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.CourseDetailResponse;
@@ -39,7 +37,7 @@ public class ShopCourseFragment extends BaseFragment {
 
     private String clubId;
 
-    private CourseController courseController;
+    private CoursePresenter courseController;
     private BookController bookController;
 
     public ShopCourseFragment() {
@@ -88,7 +86,7 @@ public class ShopCourseFragment extends BaseFragment {
 
     public void loadCourseData(String date) {
         loadingProgressDialog(R.string.loading);
-        courseController = new CourseController();
+        courseController = new CoursePresenter(this);
         courseController.getCoursebyShop(clubId, date, new ControllerInterface() {
             @Override
             public void onResult(Object obj) {

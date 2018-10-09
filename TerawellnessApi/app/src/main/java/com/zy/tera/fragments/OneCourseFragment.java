@@ -17,7 +17,7 @@ import com.zy.tera.R;
 import com.zy.tera.adapter.CourseAdapter;
 import com.zy.tera.adapter.CourseTypeAdapter;
 import com.zy.tera.adapter.TypeCourseAdapter;
-import com.zy.tera.controller.CourseController;
+import com.zy.tera.controller.CoursePresenter;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.CourseResponse;
 import com.zy.tera.response.CourseTypeResponse;
@@ -37,7 +37,7 @@ public class OneCourseFragment extends BaseFragment {
     private TypeCourseAdapter courseAdapter;
     private CourseAdapter resultAdapter;
 
-    private CourseController courseController;
+    private CoursePresenter coursePresenter;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -101,7 +101,7 @@ public class OneCourseFragment extends BaseFragment {
 
     public void buildResultData(TypeCourseResponse.TypeCourseInfo.Rows courseInfo){
         loadingProgressDialog(R.string.loading);
-        courseController.getCourseInfobyName(courseInfo.id.toString(), new ControllerInterface() {
+        coursePresenter.getCourseInfobyName(courseInfo.id.toString(), new ControllerInterface() {
             @Override
             public void onResult(Object obj) {
                 dismissLoading();
@@ -148,7 +148,7 @@ public class OneCourseFragment extends BaseFragment {
 
     public void buildTypeDatailView(CourseTypeResponse.CourseTypeInfo.Rows item){
         loadingProgressDialog(R.string.loading);
-        courseController.getCourseByType(item, new ControllerInterface() {
+        coursePresenter.getCourseByType(item, new ControllerInterface() {
             @Override
             public void onResult(Object obj) {
                 dismissLoading();
@@ -166,19 +166,16 @@ public class OneCourseFragment extends BaseFragment {
 
 
     public void loadCourseType(){
-        loadingProgressDialog(R.string.loading);
-        courseController = new CourseController();
-        courseController.loadCourseType(new ControllerInterface() {
+        coursePresenter = new CoursePresenter(this);
+        coursePresenter.loadCourseType(new ControllerInterface() {
             @Override
             public void onResult(Object obj) {
-                dismissLoading();
                 CourseTypeResponse courseTypeResponse = (CourseTypeResponse)obj;
                 buildTypeView(courseTypeResponse.data.rows);
             }
 
             @Override
             public void onError(String msg) {
-                dismissLoading();
                 showToast(msg);
             }
         });

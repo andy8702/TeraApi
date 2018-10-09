@@ -13,9 +13,8 @@ import com.zy.tera.R;
 import com.zy.tera.TeraApplication;
 import com.zy.tera.adapter.MyAppointmentAdapter;
 import com.zy.tera.controller.BookController;
-import com.zy.tera.controller.CourseController;
+import com.zy.tera.controller.CoursePresenter;
 import com.zy.tera.response.ApmtedCourseResponse;
-import com.zy.tera.response.BaseResponse;
 import com.zy.tera.response.BookResultResponse;
 import com.zy.tera.response.ControllerInterface;
 
@@ -26,7 +25,7 @@ public class MyAppointmentFragment extends BaseFragment {
 
     private ListView lsMyapp;
 
-    private CourseController courseController;
+    private CoursePresenter courseController;
     private BookController bookController;
 
     public MyAppointmentFragment() {
@@ -55,7 +54,7 @@ public class MyAppointmentFragment extends BaseFragment {
 
         loadingProgressDialog(R.string.loading);
 
-        courseController = new CourseController();
+        courseController = new CoursePresenter(this);
         courseController.getAptedCourse(userid, new ControllerInterface() {
             @Override
             public void onResult(Object obj) {

@@ -1,6 +1,7 @@
 package com.zy.tera;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
@@ -13,6 +14,7 @@ public class ServiceBuilder {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(Constants.BASEURL)
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
 
                 service = retrofit.create(DataAPIService.class);

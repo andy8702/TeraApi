@@ -16,6 +16,7 @@ import com.zy.tera.response.TypeCourseResponse;
 
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
@@ -38,7 +39,7 @@ public interface DataAPIService {
     Call<CourseResponse> getCourseInfoByCoach(@QueryMap Map<String, String> parameters);
 
     @POST("YZWD/mobi/opreate/opreate!getCoursetypeList.action")
-    Call<CourseTypeResponse> getCourseType(@QueryMap Map<String, String> parameters);
+    Flowable<CourseTypeResponse> getCourseType(@QueryMap Map<String, String> parameters);
 
     @POST("YZWD/mobi/opreate/opreate!getCourseList.action")
     Call<TypeCourseResponse> getCourseByType(@QueryMap Map<String, String> parameters);
