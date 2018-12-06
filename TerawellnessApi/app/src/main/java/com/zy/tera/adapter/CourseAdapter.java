@@ -11,6 +11,7 @@ import com.zy.tera.R;
 import com.zy.tera.fragments.OnItemClickListener;
 import com.zy.tera.response.CourseResponse;
 import com.zy.tera.response.CourseTypeResponse;
+import com.zy.tera.utils.TimeUtils;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         holder.courseName.setText(row.coursename);
         holder.courseTrainer.setText(row.coachname);
-        holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+row.begintime+"-" + row.endtime+")");
+        holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+TimeUtils.dateToWeek(row.begindate) +" "+row.begintime+")");
     }
 
     @Override

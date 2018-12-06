@@ -17,10 +17,8 @@ import com.zy.tera.utils.TimeUtils;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
