@@ -4,6 +4,7 @@ package com.zy.tera.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zy.tera.R;
+import com.zy.tera.TeraApplication;
 import com.zy.tera.controller.WorkController;
+import com.zy.tera.response.CheckinoutResponse;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.WorkLoginResponse;
 
@@ -81,6 +84,8 @@ public class WorkFragment extends Fragment {
                     @Override
                     public void onResult(Object obj) {
                         WorkLoginResponse response = (WorkLoginResponse) obj;
+                        TeraApplication.workLoginResponse = response;
+                        Log.d("work",TeraApplication.workLoginResponse.sessionkey);
                         tvResult.setText(response.sessionkey);
                     }
 
@@ -96,6 +101,19 @@ public class WorkFragment extends Fragment {
     }
 
     private void checkout(){
+        controller.checkout(new ControllerInterface() {
+            @Override
+            public void onResult(Object obj) {
+                CheckinoutResponse response = (CheckinoutResponse) obj;
+                String msg = response.result + " " + response.msg + " "
+                        +response.errorno + " "+response.error;
+                tvResult.setText(msg);
+            }
 
+            @Override
+            public void onError(String msg) {
+                tvResult.setText(msg);
+            }
+        });
     }
 }

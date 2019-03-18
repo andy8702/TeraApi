@@ -6,6 +6,7 @@ import android.util.Log;
 import com.zy.tera.response.LoginResponse;
 import com.zy.tera.response.MembershipResponse;
 import com.zy.tera.response.ShopResponse;
+import com.zy.tera.response.WorkLoginResponse;
 
 /**
  * Created by yz250242 on 2018/3/29.
@@ -19,6 +20,9 @@ public class TeraApplication extends Application{
 
     public static boolean isUseSpecialBook = true;
     public static String LOGINID ="";
+
+    //for work
+    public static WorkLoginResponse workLoginResponse = null;
 
     public void setLoginInfo(LoginResponse loginResponse){
         this.loginResponse = loginResponse;
