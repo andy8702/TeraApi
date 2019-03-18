@@ -17,6 +17,7 @@ import com.zy.tera.fragments.OneCourseFragment;
 import com.zy.tera.fragments.SearchCoachFragment;
 import com.zy.tera.fragments.ShopCourseFragment;
 import com.zy.tera.fragments.ShopSearchFragment;
+import com.zy.tera.fragments.WorkFragment;
 import com.zy.tera.response.ShopDetailsResponse;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,FragmentListener {
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 抽屉菜单对象
     public DrawerLayout drawerLayout;
     private RelativeLayout main_left_drawer_layout;
-    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach,btnShopSearch,btnMyAptmnt;
+    private Button btnBasicInfo, btnOneDayCourse, btnSearchCoach,btnShopSearch,btnMyAptmnt,
+    btnWork;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         main_left_drawer_layout = (RelativeLayout) findViewById(R.id.main_left_drawer_layout);
 
+        btnWork = findViewById(R.id.menu_work);
+        btnWork.setOnClickListener(this);
         btnBasicInfo = findViewById(R.id.menu_basicinfo);
         btnBasicInfo.setOnClickListener(this);
         btnOneDayCourse = findViewById(R.id.menu_onedayonecourse);
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnMyAptmnt =  findViewById(R.id.menu_myappointment);
         btnMyAptmnt.setOnClickListener(this);
 
-        btnOneDayCourse.performClick();
+        btnWork.performClick();
     }
 
     public void changeFragment(Fragment newFragment) {
@@ -83,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.closeDrawers();
 
         switch (view.getId()) {
+            case R.id.menu_work:
+                changeFragment(new WorkFragment());
+                break;
+
             case R.id.menu_basicinfo:
                 changeFragment(new BasicInfoFragment());
                 break;
