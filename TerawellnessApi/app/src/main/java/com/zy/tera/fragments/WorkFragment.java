@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zy.tera.R;
+import com.zy.tera.controller.WorkController;
+import com.zy.tera.response.ControllerInterface;
+import com.zy.tera.response.WorkLoginResponse;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +24,8 @@ public class WorkFragment extends Fragment {
     private TextView tvResult;
     private EditText etUsername, etPassword;
     private Button btnLogin, btnCheckin, btnCheckout;
+
+    private WorkController controller;
 
 
     public WorkFragment() {
@@ -65,10 +70,25 @@ public class WorkFragment extends Fragment {
                 checkout();
             }
         });
+
+        controller = new WorkController();
     }
 
     private void login(){
+        controller.login(etUsername.getText().toString().trim(),
+                etPassword.getText().toString().trim(),
+                new ControllerInterface() {
+                    @Override
+                    public void onResult(Object obj) {
+                        WorkLoginResponse response = (WorkLoginResponse) obj;
+                        tvResult.setText(response.sessionkey);
+                    }
 
+                    @Override
+                    public void onError(String msg) {
+                        tvResult.setText(msg);
+                    }
+                });
     }
 
     private void checkin(){
