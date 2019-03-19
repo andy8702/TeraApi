@@ -1,5 +1,6 @@
 package com.zy.tera.controller;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.zy.tera.TeraApplication;
@@ -18,13 +19,18 @@ import retrofit2.Response;
 
 public class WorkController {
 
+    private Context context;
+    public WorkController(Context context){
+        this.context = context;
+    }
+
     WorkAPIService service;
 
     String addr = "%E4%B8%8A%E6%B5%B7%E5%B8%82%E8%99%B9%E5%8F%A3%E5%8C%BA%E5%9B%9B%E5%B7%9D%E5%8C%97%E8%B7%AF1751%E5%8F%B7%E9%9D%A0%E8%BF%91%E5%90%8C%E6%96%87%E5%90%9B%E4%BA%AD%E9%85%92%E5%BA%97%28%E5%9B%9B%E5%B7%9D%E5%8C%97%E8%B7%AF%29";
 
     public void login(String username, String password, final ControllerInterface callback) {
         if (null == service) {
-            service = WorkServiceBuilder.getInstance();
+            service = WorkServiceBuilder.getInstance(context);
         }
 
         if (null == callback) {
@@ -64,7 +70,7 @@ public class WorkController {
 
     public void checkout(final ControllerInterface callback) {
         if (null == service) {
-            service = WorkServiceBuilder.getInstance();
+            service = WorkServiceBuilder.getInstance(context);
         }
 
         if (null == callback) {
@@ -90,7 +96,7 @@ public class WorkController {
 
     public void checkin(final ControllerInterface callback) {
         if (null == service) {
-            service = WorkServiceBuilder.getInstance();
+            service = WorkServiceBuilder.getInstance(context);
         }
 
         if (null == callback) {

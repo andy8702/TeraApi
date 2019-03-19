@@ -73,7 +73,7 @@ public class WorkFragment extends Fragment {
             }
         });
 
-        controller = new WorkController();
+        controller = new WorkController(getContext());
     }
 
     private void login(){
