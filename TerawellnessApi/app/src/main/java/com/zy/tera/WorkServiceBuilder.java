@@ -24,6 +24,8 @@ public class WorkServiceBuilder {
             }catch (IllegalArgumentException e){
                 System.out.println("The API host URL is not correct!");
                 throw new IllegalArgumentException("The API host URL is not correct!");
+            }catch (Exception ex){
+                ex.printStackTrace();
             }
         }
 
