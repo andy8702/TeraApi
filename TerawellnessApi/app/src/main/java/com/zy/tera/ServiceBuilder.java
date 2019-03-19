@@ -15,6 +15,7 @@ public class ServiceBuilder {
                         .baseUrl(Constants.BASEURL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .client(LogInterceptor.getLogInterceptor())
                         .build();
 
                 service = retrofit.create(DataAPIService.class);

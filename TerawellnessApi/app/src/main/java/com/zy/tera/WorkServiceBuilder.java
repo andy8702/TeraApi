@@ -13,6 +13,7 @@ public class WorkServiceBuilder {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(Constants.WORK_BASEURL)
                         .addConverterFactory(GsonConverterFactory.create())
+                        .client(LogInterceptor.getLogInterceptor())
                         .build();
 
                 service = retrofit.create(WorkAPIService.class);

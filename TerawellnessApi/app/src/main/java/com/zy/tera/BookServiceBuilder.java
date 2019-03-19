@@ -13,6 +13,7 @@ public class BookServiceBuilder {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(Constants.BOOK_BASEURL)
                         .addConverterFactory(GsonConverterFactory.create())
+                        .client(LogInterceptor.getLogInterceptor())
                         .build();
 
                 service = retrofit.create(BookAPIService.class);
