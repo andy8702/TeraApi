@@ -28,6 +28,8 @@ public class HTTPSUtils {
             builder.addInterceptor(loggingInterceptor);
         }
 
+        builder.addInterceptor(new HeaderInterceptor());
+
         builder.sslSocketFactory(TrustAllCerts.createSSLSocketFactory())
         .hostnameVerifier(new TrustAllCerts.TrustAllHostnameVerifier())
         .readTimeout(10, TimeUnit.SECONDS)

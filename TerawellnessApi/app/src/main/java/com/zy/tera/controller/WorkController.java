@@ -63,6 +63,7 @@ public class WorkController {
 
             @Override
             public void onFailure(Call<WorkLoginResponse> call, Throwable t) {
+                Log.d("fail",t.toString());
                 callback.onError(t.toString());
             }
         });
