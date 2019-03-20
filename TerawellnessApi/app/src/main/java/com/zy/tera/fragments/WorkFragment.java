@@ -21,7 +21,7 @@ import com.zy.tera.response.WorkLoginResponse;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkFragment extends Fragment {
+public class WorkFragment extends BaseFragment {
 
     private TextView tvResult;
     private EditText etUsername, etPassword;
@@ -95,7 +95,20 @@ public class WorkFragment extends Fragment {
     }
 
     private void checkin(){
+        controller.checkin(new ControllerInterface() {
+            @Override
+            public void onResult(Object obj) {
+                CheckinoutResponse response = (CheckinoutResponse) obj;
+                String msg = response.result + " " + response.msg + " "
+                        +response.errorno + " "+response.error;
+                tvResult.setText(msg);
+            }
 
+            @Override
+            public void onError(String msg) {
+                tvResult.setText(msg);
+            }
+        });
     }
 
     private void checkout(){
