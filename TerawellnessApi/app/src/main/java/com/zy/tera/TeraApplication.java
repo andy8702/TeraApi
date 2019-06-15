@@ -19,7 +19,7 @@ public class TeraApplication extends Application{
     public ShopResponse shopInfo;
 
     public static boolean isUseSpecialBook = true;
-    public static String LOGINID ="";
+    public static String LOGINID ="13524284562";
 
     //for work
     public static WorkLoginResponse workLoginResponse = null;

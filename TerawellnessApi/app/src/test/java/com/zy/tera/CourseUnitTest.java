@@ -4,7 +4,6 @@ import com.zy.tera.response.ApmtedCourseResponse;
 import com.zy.tera.response.AppointmentResponse;
 import com.zy.tera.response.CourseDetailResponse;
 import com.zy.tera.response.CourseResponse;
-import com.zy.tera.response.CourseTypeResponse;
 import com.zy.tera.response.TypeCourseResponse;
 import com.zy.tera.utils.TimeUtils;
 
@@ -172,31 +171,31 @@ public class CourseUnitTest {
         }
     }
 
-    @Test
-    public void getCourseType() {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("app", "a");
-
-
-        Call courseTypeCall = ServiceBuilder.getInstance().getCourseType(parameters);
-        try {
-            Response<CourseTypeResponse> courseResponse = courseTypeCall.execute();
-
-            List<CourseTypeResponse.CourseTypeInfo.Rows> rows = courseResponse.body().data.rows;
-
-            if (!rows.isEmpty()) {
-                for (CourseTypeResponse.CourseTypeInfo.Rows row : rows) {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    stringBuffer.append(row.name);
-                    stringBuffer.append(" " + row.id);
-                    System.out.println(stringBuffer.toString());
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void getCourseType() {
+//        Map<String, String> parameters = new HashMap<>();
+//        parameters.put("app", "a");
+//
+//
+//        Call courseTypeCall = ServiceBuilder.getInstance().getCourseType(parameters);
+//        try {
+//            Response<CourseTypeResponse> courseResponse = courseTypeCall.execute();
+//
+//            List<CourseTypeResponse.CourseTypeInfo.Rows> rows = courseResponse.body().data.rows;
+//
+//            if (!rows.isEmpty()) {
+//                for (CourseTypeResponse.CourseTypeInfo.Rows row : rows) {
+//                    StringBuffer stringBuffer = new StringBuffer();
+//                    stringBuffer.append(row.name);
+//                    stringBuffer.append(" " + row.id);
+//                    System.out.println(stringBuffer.toString());
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Test
