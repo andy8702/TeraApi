@@ -2,12 +2,12 @@ package com.zy.tera.fragments;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zy.tera.MainActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.zy.tera.R;
 
 /**

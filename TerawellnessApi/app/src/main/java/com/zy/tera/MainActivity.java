@@ -2,13 +2,13 @@ package com.zy.tera;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.zy.tera.fragments.BasicInfoFragment;
 import com.zy.tera.fragments.FragmentListener;
@@ -20,7 +20,7 @@ import com.zy.tera.fragments.ShopSearchFragment;
 import com.zy.tera.fragments.WorkFragment;
 import com.zy.tera.response.ShopDetailsResponse;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,FragmentListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener,FragmentListener {
 
     public static int COMMOND_SHOP_COURSES = 1;
 

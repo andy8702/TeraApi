@@ -25,6 +25,9 @@
 
     <string name="loading">正在加载...</string>
 
+    <string name="guide1">课程相关</string>
+    <string name="guide2">其他</string>
+
     <string name="onedayonecourse">当天某一课程所有排课</string>
     <string name="onedayonecourse2">当天单课查询</string>
     <string name="search_coach_course">根据教练查课</string>
