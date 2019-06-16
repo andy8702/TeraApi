@@ -31,20 +31,20 @@
         />
 
 
-    <!--当天某一课程所有排课 -->
+    <!--基本信息-->
     <Button
-        android:id="@+id/onedayonecourse"
+        android:id="@+id/basicinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/space1"
-        android:text="@string/onedayonecourse"/>
+        android:text="@string/basicinfo"/>
 
     <!--当天单课查询 -->
     <Button
         android:id="@+id/onedayonecourse2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/onedayonecourse"
+        app:layout_constraintTop_toBottomOf="@id/basicinfo"
         android:text="@string/onedayonecourse2"/>
 
     <!--根据教练查课 -->

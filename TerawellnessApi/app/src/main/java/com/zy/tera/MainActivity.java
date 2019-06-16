@@ -36,6 +36,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,F
         setContentView(R.layout.activity_main2);
 
         initLayout();
+
+        int v = getIntent().getIntExtra("fid",0);
+        loadFragment(v);
+
     }
 
     public void initLayout() {
@@ -56,7 +60,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,F
         btnMyAptmnt =  findViewById(R.id.menu_myappointment);
         btnMyAptmnt.setOnClickListener(this);
 
-        btnWork.performClick();
+    }
+
+    private void loadFragment(int value){
+        switch (value){
+            case 1:
+                btnBasicInfo.performClick();
+                break;
+
+            case 2:
+                btnOneDayCourse.performClick();
+                break;
+
+            case 3:
+                btnSearchCoach.performClick();
+                break;
+
+            case 4:
+                btnShopSearch.performClick();
+                break;
+
+            case 5:
+                btnMyAptmnt.performClick();
+                break;
+
+            case 6:
+                btnWork.performClick();
+                break;
+
+            default:
+                btnSearchCoach.performClick();
+        }
     }
 
     public void changeFragment(Fragment newFragment) {
@@ -80,6 +114,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,F
         } else {
             drawerLayout.openDrawer(main_left_drawer_layout);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override
