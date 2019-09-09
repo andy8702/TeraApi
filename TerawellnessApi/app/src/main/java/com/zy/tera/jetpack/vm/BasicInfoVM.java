@@ -27,8 +27,8 @@ public class BasicInfoVM extends ViewModel {
             PagedList.Config pagedListConfig =
                     (new PagedList.Config.Builder())
                             .setEnablePlaceholders(false)
-//                            .setInitialLoadSizeHint(10)
-//                            .setPageSize(20)
+                            .setInitialLoadSizeHint(10)
+                            .setPageSize(20)
                             .build();
 
             ShopDataFactory factory = new ShopDataFactory(data);

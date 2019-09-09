@@ -19,7 +19,7 @@ public class ShopDataSource extends PageKeyedDataSource<Long, ShopRows> {
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<Long, ShopRows> callback) {
-
+        callback.onResult(data,null,null);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class ShopDataSource extends PageKeyedDataSource<Long, ShopRows> {
 
     @Override
     public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<Long, ShopRows> callback) {
-
+        callback.onResult(data,null);
     }
 }
