@@ -10,13 +10,18 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zy.tera.R;
 import com.zy.tera.TeraApplication;
-import com.zy.tera.adapter.SimpleShopAdapter;
 import com.zy.tera.controller.LoginController;
+import com.zy.tera.jetpack.pagedadapter.PagedShopAdapter;
+import com.zy.tera.jetpack.pagedadapter.ShopRows;
+import com.zy.tera.jetpack.vm.BasicInfoVM;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.LoginResponse;
 import com.zy.tera.response.MembershipResponse;
@@ -24,6 +29,7 @@ import com.zy.tera.response.ShopResponse;
 import com.zy.tera.utils.TimeUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +45,10 @@ public class BasicInfoFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    //JepPack
+    private BasicInfoVM basicInfoVM;
+    private PagedShopAdapter pagedShopAdapter;
 
     public BasicInfoFragment() {
         // Required empty public constructor
@@ -62,16 +72,47 @@ public class BasicInfoFragment extends BaseFragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
 
+        basicInfoVM = ViewModelProviders.of(this).get(BasicInfoVM.class);
+
         buildLoginData();
     }
 
     public void initRecycleViewData(List<ShopResponse.ShopInfo.Rows> rows){
+        pagedShopAdapter = new PagedShopAdapter(ShopRows.DIFF_CALLBACK);
+
+
+        basicInfoVM.setData(convertData(rows));
+        basicInfoVM.getShoprows().observe(this, new Observer<PagedList<ShopRows>>() {
+            @Override
+            public void onChanged(PagedList<ShopRows> shopRows) {
+                pagedShopAdapter.submitList(shopRows);
+            }
+        });
+
+
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mAdapter = new SimpleShopAdapter(rows);
-        // 设置布局管理器
+//        mAdapter = new SimpleShopAdapter(rows);
         recyclerView.setLayoutManager(mLayoutManager);
-        // 设置adapter
-        recyclerView.setAdapter(mAdapter);
+//        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(pagedShopAdapter);
+    }
+
+    public List<ShopRows> convertData(List<ShopResponse.ShopInfo.Rows> rows){
+        if (rows.isEmpty()){
+            return null;
+        }else{
+            List<ShopRows> list = new ArrayList<ShopRows>();
+            for (ShopResponse.ShopInfo.Rows row : rows){
+                ShopRows item = new ShopRows();
+                item.club_id = row.club_id;
+                item.club_no = row.club_no;
+                item.clubname = row.clubname;
+
+                list.add(item);
+            }
+
+            return list;
+        }
     }
 
     public void buildAvailableShop(MembershipResponse response){
