@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">接口调取</string>
+    <string name="app_name">综合查询</string>
     <string name="work">上下班打卡</string>
     <string name="basicinfo">基本信息</string>
     <string name="basicinfo_cardno">卡号： %1$s</string>

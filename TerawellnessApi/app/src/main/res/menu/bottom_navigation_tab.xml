@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_one"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="教练"/>
+
+    <item
+        android:id="@+id/tab_two"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="单课"/>
+
+    <item
+        android:id="@+id/tab_three"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="门店"/>
+
+    <item
+        android:id="@+id/tab_four"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="其他"/>
+</menu>

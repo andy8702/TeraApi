@@ -7,12 +7,6 @@ import kotlinx.android.synthetic.main.activity_navigation.*
 
 class NavigationActivity : BaseActivity() {
 
-//     val coachSearch: Button
-//     val shopCourse: Button
-//     val myAppointment: Button
-//
-//     val workCheckinout: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
