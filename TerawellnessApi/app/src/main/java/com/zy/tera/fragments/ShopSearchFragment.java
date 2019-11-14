@@ -18,8 +18,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.zy.tera.MainActivity;
 import com.zy.tera.R;
+import com.zy.tera.ShopCourseDetailActivity;
 import com.zy.tera.adapter.ShopDetailAdapter;
 import com.zy.tera.controller.LoginController;
 import com.zy.tera.response.ControllerInterface;
@@ -98,9 +98,12 @@ public class ShopSearchFragment extends BaseFragment{
 
             @Override
             public void onItemClick(ShopDetailsResponse.ShopDetailInfo.Rows item) {
-                if (null!=listener){
-                    listener.onReceive(MainActivity.COMMOND_SHOP_COURSES,item);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString(ShopCourseFragment.KEY_CLUBID,item.id);
+
+                Intent intent = new Intent(getActivity(), ShopCourseDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

@@ -157,6 +157,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,F
         }
     }
 
+    public void showShopCourse(){
+
+    }
 
     @Override
     public void onReceive(int commond, Object obj) {

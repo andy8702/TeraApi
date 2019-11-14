@@ -55,8 +55,6 @@ public class ShopCourseFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        clubId = getArguments().getString(KEY_CLUBID);
-
         btnChooser = view.findViewById(R.id.btn_choose_date);
         listView = view.findViewById(R.id.ls_courese);
 
@@ -79,10 +77,16 @@ public class ShopCourseFragment extends BaseFragment {
             }
         });
 
+
+
+    }
+
+    public void initData(){
+
+        clubId = getArguments().getString(KEY_CLUBID);
         if (!TextUtils.isEmpty(clubId)) {
             loadCourseData(null);
         }
-
     }
 
     public void loadCourseData(String date) {
