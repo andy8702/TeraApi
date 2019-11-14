@@ -1,5 +1,6 @@
 package com.zy.tera.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +40,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         return v;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // 绑定数据
         CourseResponse.CourseInfo.Rows row = mData.get(position);
 
+        if (row.clubname.startsWith("上海")){
+            holder.layoutItem.setBackgroundResource(R.color.item_highlight);
+        }else{
+            holder.layoutItem.setBackgroundResource(android.R.color.white);
+        }
         holder.courseName.setText(row.coursename);
         holder.courseTrainer.setText(row.coachname);
         holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+TimeUtils.dateToWeek(row.begindate) +" "+row.begintime+")");
@@ -58,12 +65,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         TextView courseName,courseTrainer,CourseTimeAddr;
         OnItemClickListener onItemClickListener;
+        View layoutItem;
 
         public ViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             courseName = (TextView) itemView.findViewById(R.id.tv_cname);
             courseTrainer = (TextView) itemView.findViewById(R.id.tv_tname);
             CourseTimeAddr = (TextView) itemView.findViewById(R.id.tv_timeaddr);
+            layoutItem = itemView.findViewById(R.id.layout_item);
 
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
