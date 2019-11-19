@@ -9,6 +9,9 @@ import com.zy.tera.response.ShopResponse;
 import com.zy.tera.response.WorkLoginResponse;
 import com.zy.tera.utils.LogUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by yz250242 on 2018/3/29.
  */
@@ -21,11 +24,19 @@ public class TeraApplication extends Application{
 
     public static boolean isUseSpecialBook = true;
     public static String LOGINID ="13524284562";
+    public static List blacklist;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LogUtil.init(true);
+        String[] b = getResources().getStringArray(R.array.array_blacklist);
+        if (null != b && b.length>0){
+            blacklist = new ArrayList();
+            for (int i=0;i<b.length;i++){
+                blacklist.add(b[i]);
+            }
+        }
     }
 
     //for work
