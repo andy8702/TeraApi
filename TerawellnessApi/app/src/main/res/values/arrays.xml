@@ -3,5 +3,11 @@
     <string-array name="array_blacklist">
         <item>顾蓓蓓</item>
         <item>孔品若</item>
+        <item>宋伟伟</item>
+    </string-array>
+
+    <string-array name="array_recommondlist">
+        <item>杨箫</item>
+        <item>肖然</item>
     </string-array>
 </resources>

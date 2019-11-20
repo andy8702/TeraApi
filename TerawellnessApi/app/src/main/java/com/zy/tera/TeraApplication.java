@@ -25,16 +25,26 @@ public class TeraApplication extends Application{
     public static boolean isUseSpecialBook = true;
     public static String LOGINID ="13524284562";
     public static List blacklist;
+    public static List recommondlist;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LogUtil.init(true);
+
         String[] b = getResources().getStringArray(R.array.array_blacklist);
         if (null != b && b.length>0){
             blacklist = new ArrayList();
             for (int i=0;i<b.length;i++){
                 blacklist.add(b[i]);
+            }
+        }
+
+        String[] r = getResources().getStringArray(R.array.array_recommondlist);
+        if (null != r && r.length>0){
+            recommondlist = new ArrayList();
+            for (int i=0;i<r.length;i++){
+                recommondlist.add(r[i]);
             }
         }
     }
