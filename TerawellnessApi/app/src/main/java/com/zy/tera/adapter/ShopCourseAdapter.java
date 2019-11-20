@@ -1,6 +1,7 @@
 package com.zy.tera.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zy.tera.R;
+import com.zy.tera.TeraApplication;
 import com.zy.tera.response.CourseDetailResponse;
-import com.zy.tera.response.ShopDetailsResponse;
 
 import java.util.List;
 
@@ -72,6 +73,28 @@ public class ShopCourseAdapter extends BaseAdapter {
                 }
             }
         });
+
+        View blacklist = v.findViewById(R.id.blacklist);
+        View recommond = v.findViewById(R.id.tv_recommond);
+
+        if (null!= TeraApplication.blacklist && TeraApplication.blacklist.contains(item.coachname.toString())){
+            blacklist.setVisibility(View.VISIBLE);
+
+            courseName.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+            tName.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+            addr.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+        }else{
+            blacklist.setVisibility(View.GONE);
+            courseName.getPaint().setFlags(0);
+            tName.getPaint().setFlags(0);
+            addr.getPaint().setFlags(0);
+        }
+
+        if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(item.coachname.toString())){
+            recommond.setVisibility(View.VISIBLE);
+        }else{
+            recommond.setVisibility(View.GONE);
+        }
 
         return v;
     }
