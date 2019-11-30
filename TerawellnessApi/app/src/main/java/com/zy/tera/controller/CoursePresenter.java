@@ -105,7 +105,8 @@ public class CoursePresenter {
         coachCall.enqueue(new Callback<CoachResponse>() {
             @Override
             public void onResponse(Call<CoachResponse> call, Response<CoachResponse> response) {
-                getCoursebyCoachId(response.body().data.rows.get(0).id.toString(), callback);
+//                getCoursebyCoachId(response.body().data.rows.get(0).id.toString(), callback);
+                callback.onResult(response.body().data.rows);
             }
 
             @Override
@@ -117,7 +118,7 @@ public class CoursePresenter {
 
     }
 
-    private void getCoursebyCoachId(String coachid, final ControllerInterface callback) {
+    public void getCoursebyCoachId(String coachid, final ControllerInterface callback) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("app", "a");
         parameters.put("page", "1");

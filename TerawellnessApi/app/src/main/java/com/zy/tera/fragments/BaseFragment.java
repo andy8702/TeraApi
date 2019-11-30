@@ -1,7 +1,10 @@
 package com.zy.tera.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,5 +64,14 @@ public class BaseFragment extends Fragment implements IFragment{
 
         simpleDialog = builder.create();
         simpleDialog.show();
+    }
+
+    public void closeKeyboard(Activity activity){
+        InputMethodManager imm =  (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null) {
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(),
+                    0);
+
+        }
     }
 }
