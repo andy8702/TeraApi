@@ -76,6 +76,7 @@ public class ShopCourseAdapter extends BaseAdapter {
 
         View blacklist = v.findViewById(R.id.blacklist);
         View recommond = v.findViewById(R.id.tv_recommond);
+        View pending = v.findViewById(R.id.tv_pending);
 
         if (null!= TeraApplication.blacklist && TeraApplication.blacklist.contains(item.coachname.toString())){
             blacklist.setVisibility(View.VISIBLE);
@@ -88,6 +89,12 @@ public class ShopCourseAdapter extends BaseAdapter {
             courseName.getPaint().setFlags(0);
             tName.getPaint().setFlags(0);
             addr.getPaint().setFlags(0);
+        }
+
+        if (null!=TeraApplication.pendingList && TeraApplication.pendingList.contains(item.coachname.toString())){
+            pending.setVisibility(View.VISIBLE);
+        }else{
+            pending.setVisibility(View.GONE);
         }
 
         if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(item.coachname.toString())){

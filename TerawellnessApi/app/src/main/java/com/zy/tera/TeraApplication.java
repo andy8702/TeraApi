@@ -26,11 +26,20 @@ public class TeraApplication extends Application{
     public static String LOGINID ="13524284562";
     public static List blacklist;
     public static List recommondlist;
+    public static List pendingList;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LogUtil.init(true);
+
+        String[] p = getResources().getStringArray(R.array.array_pending);
+        if (null != p && p.length>0){
+            pendingList = new ArrayList();
+            for (int i=0;i<p.length;i++){
+                pendingList.add(p[i]);
+            }
+        }
 
         String[] b = getResources().getStringArray(R.array.array_blacklist);
         if (null != b && b.length>0){

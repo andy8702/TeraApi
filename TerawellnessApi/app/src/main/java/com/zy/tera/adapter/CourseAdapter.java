@@ -70,6 +70,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             holder.CourseTimeAddr.getPaint().setFlags(0);
         }
 
+        if (null!=TeraApplication.pendingList && TeraApplication.pendingList.contains(row.coachname)){
+            holder.pending.setVisibility(View.VISIBLE);
+        }else{
+            holder.pending.setVisibility(View.GONE);
+        }
+
         if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(row.coachname)){
             holder.recommond.setVisibility(View.VISIBLE);
         }else{
@@ -86,7 +92,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         TextView courseName,courseTrainer,CourseTimeAddr;
         OnItemClickListener onItemClickListener;
-        View layoutItem,blacklist,recommond;
+        View layoutItem,blacklist,recommond,pending;
 
         public ViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
@@ -96,6 +102,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             layoutItem = itemView.findViewById(R.id.layout_item);
             blacklist = itemView.findViewById(R.id.blacklist);
             recommond = itemView.findViewById(R.id.tv_recommond);
+            pending = itemView.findViewById(R.id.tv_pending);
 
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
