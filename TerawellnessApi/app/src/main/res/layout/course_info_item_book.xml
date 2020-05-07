@@ -48,6 +48,18 @@
                     android:text="CourseName" />
 
                 <TextView
+                    android:id="@+id/tv_pending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/cardview_dark_background"
+                    android:background="@drawable/textview_border_dark"
+                    android:textSize="16sp"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    android:text="@string/pending" />
+
+                <TextView
                     android:id="@+id/tv_recommond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
