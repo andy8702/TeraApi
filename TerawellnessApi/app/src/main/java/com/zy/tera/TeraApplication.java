@@ -28,6 +28,10 @@ public class TeraApplication extends Application{
     public static List recommondlist;
     public static List pendingList;
 
+    public static boolean FLAG_RECOMMOND = true;
+    public static boolean FLAG_PENDING = true;
+    public static boolean FLAG_BLACKLIST = true;
+
     @Override
     public void onCreate() {
         super.onCreate();

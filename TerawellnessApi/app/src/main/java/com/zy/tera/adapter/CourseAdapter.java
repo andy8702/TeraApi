@@ -57,7 +57,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.courseTrainer.setText(row.coachname);
         holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+TimeUtils.dateToWeek(row.begindate) +" "+row.begintime+")");
 
-        if (null!=TeraApplication.blacklist && TeraApplication.blacklist.contains(row.coachname)){
+        if (null!=TeraApplication.blacklist && TeraApplication.blacklist.contains(row.coachname) && TeraApplication.FLAG_BLACKLIST){
             holder.blacklist.setVisibility(View.VISIBLE);
 
             holder.courseName.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
@@ -70,13 +70,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             holder.CourseTimeAddr.getPaint().setFlags(0);
         }
 
-        if (null!=TeraApplication.pendingList && TeraApplication.pendingList.contains(row.coachname)){
+        if (null!=TeraApplication.pendingList && TeraApplication.pendingList.contains(row.coachname) && TeraApplication.FLAG_PENDING){
             holder.pending.setVisibility(View.VISIBLE);
         }else{
             holder.pending.setVisibility(View.GONE);
         }
 
-        if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(row.coachname)){
+        if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(row.coachname) && TeraApplication.FLAG_RECOMMOND){
             holder.recommond.setVisibility(View.VISIBLE);
         }else{
             holder.recommond.setVisibility(View.GONE);

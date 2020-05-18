@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zy.tera.R;
+import com.zy.tera.TeraApplication;
 import com.zy.tera.adapter.CourseAdapter;
 import com.zy.tera.adapter.CourseTypeAdapter;
 import com.zy.tera.adapter.TypeCourseAdapter;
@@ -43,6 +46,8 @@ public class OneCourseFragment extends BaseFragment {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private ImageButton ibShowHide;
+
+    private CheckBox checkBox;
 
     public OneCourseFragment() {
         // Required empty public constructor
@@ -74,6 +79,27 @@ public class OneCourseFragment extends BaseFragment {
                 }else{
                     courseGv.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        checkBox = view.findViewById(R.id.cb_close_label);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    TeraApplication.FLAG_RECOMMOND = false;
+                    TeraApplication.FLAG_PENDING = false;
+                    TeraApplication.FLAG_BLACKLIST = false;
+
+                }else{
+                    TeraApplication.FLAG_RECOMMOND = true;
+                    TeraApplication.FLAG_PENDING = true;
+                    TeraApplication.FLAG_BLACKLIST = true;
+                }
+                if (null != resultAdapter){
+                    resultAdapter.notifyDataSetChanged();
+                }
+
             }
         });
 

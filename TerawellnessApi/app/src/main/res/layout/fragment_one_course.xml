@@ -38,6 +38,15 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
+        <CheckBox
+            android:id="@+id/cb_close_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/close_label"
+            android:checked="false"
+            />
 
         <GridView
             android:id="@+id/rv_course"
