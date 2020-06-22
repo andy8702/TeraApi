@@ -2,12 +2,14 @@ package com.zy.tera.fragments;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -16,8 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zy.tera.R;
+import com.zy.tera.RateSettingActivity;
 import com.zy.tera.adapter.CourseAdapter;
 import com.zy.tera.controller.CoursePresenter;
+import com.zy.tera.db.CoachRateInfo;
 import com.zy.tera.response.CoachResponse;
 import com.zy.tera.response.ControllerInterface;
 import com.zy.tera.response.CourseResponse;
@@ -31,13 +35,15 @@ import java.util.List;
 public class SearchCoachFragment extends BaseFragment {
 
     private EditText editText;
-    private Button btnSearch;
+    private Button btnSearch,btnRate,btnRateSetting;
 
     private RecyclerView recyclerView;
     private CourseAdapter resultAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private CoursePresenter courseController;
+
+    private CoachRateInfo coachRateInfo;
 
 
     public SearchCoachFragment() {
@@ -59,12 +65,41 @@ public class SearchCoachFragment extends BaseFragment {
         btnSearch = view.findViewById(R.id.btn_search);
         recyclerView = view.findViewById(R.id.rv_coachcourse);
         editText = view.findViewById(R.id.search_input);
+        btnRate = view.findViewById(R.id.btn_rate);
+        btnRateSetting = view.findViewById(R.id.btn_rate_setting);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 closeKeyboard(getActivity());
                 buildCourseData();
+            }
+        });
+
+        btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null!=coachRateInfo){
+                    Intent intent = new Intent(getActivity(), RateSettingActivity.class);
+                    intent.putExtra(RateSettingActivity.FLAG_isRating,RateSettingActivity.FLAG_isRating);
+                    intent.getExtras().putParcelable(RateSettingActivity.FLAG_isRating,coachRateInfo);
+                    startActivity(intent);
+
+                }else{
+                    Toast.makeText(getContext(),R.string.error_no_coachinfo,Toast.LENGTH_LONG);
+                }
+            }
+        });
+
+        btnRateSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null!=coachRateInfo){
+                    Intent intent = new Intent(getActivity(), RateSettingActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(),R.string.error_no_coachinfo,Toast.LENGTH_LONG);
+                }
             }
         });
 
@@ -133,6 +168,11 @@ public class SearchCoachFragment extends BaseFragment {
     }
 
     public void buildResultView(CourseResponse courseResponse) {
+        if (null!=courseResponse.data.rows && courseResponse.data.rows.size()>0){
+            CourseResponse.CourseInfo.Rows row = courseResponse.data.rows.get(0);
+            coachRateInfo = new CoachRateInfo(String.valueOf(row.coachid),courseResponse.data.rows.get(0).coachname);
+        }
+
         resultAdapter = new CourseAdapter(courseResponse.data.rows);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
