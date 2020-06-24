@@ -44,6 +44,9 @@
 
     <string name="error_no_coachinfo">未获得教练信息</string>
 
+    <string name="oper_success">操作成功</string>
+    <string name="oper_fail">操作失败</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
