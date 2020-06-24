@@ -38,6 +38,9 @@ interface CoachRateInfoDao {
     @Query("SELECT * FROM coachrateinfo WHERE id = :id")
     fun getUserById(id: String): Flowable<CoachRateInfo>
 
+    @Query("SELECT * FROM coachrateinfo")
+    fun getAllRatingCoach():Flowable<List<CoachRateInfo>>
+
     /**
      * Insert a user in the database. If the user already exists, replace it.
 

@@ -85,7 +85,7 @@ public class SearchCoachFragment extends BaseFragment {
                     startActivity(intent);
 
                 }else{
-                    Toast.makeText(getContext(),R.string.error_no_coachinfo,Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(),R.string.error_no_coachinfo,Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -93,12 +93,8 @@ public class SearchCoachFragment extends BaseFragment {
         btnRateSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null!=coachRateInfo){
                     Intent intent = new Intent(getActivity(), RateSettingActivity.class);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(getContext(),R.string.error_no_coachinfo,Toast.LENGTH_LONG);
-                }
             }
         });
 

@@ -1,14 +1,18 @@
 package com.zy.tera
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.zy.tera.adapter.RateAdapter
 import com.zy.tera.db.CoachRateInfo
 import com.zy.tera.db.TeraDatabase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_ratesetting_rate.*
+import kotlinx.android.synthetic.main.activity_ratesetting_setting.*
 
 class RateSettingActivity: BaseActivity() {
 
@@ -22,11 +26,17 @@ class RateSettingActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        coachRateInfo = intent.getParcelableExtra<CoachRateInfo>(FLAG_isRating);
+        try{
+            coachRateInfo = intent.getParcelableExtra<CoachRateInfo>(FLAG_isRating);
+        }catch (e:Exception){
+            coachRateInfo = CoachRateInfo("","") ;
+        }
 
-        if (null == coachRateInfo){
+
+        if (TextUtils.isEmpty(coachRateInfo.id)){
             //设置页面
             setContentView(R.layout.activity_ratesetting_setting);
+            initSettingView();
         }else{
             //打分页面
             setContentView(R.layout.activity_ratesetting_rate);
@@ -36,6 +46,20 @@ class RateSettingActivity: BaseActivity() {
         }
 
 
+    }
+
+    fun initSettingView(){
+        disposable.add(TeraDatabase.getInstance(this).coachRateInfoDao().getAllRatingCoach()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    it.forEach { s -> Log.d("db",s.id+","+s.name+","+s.rate) }
+
+                    recycler_view.layoutManager = LinearLayoutManager(this)
+                    recycler_view.adapter = RateAdapter(it);
+
+                },
+                        { error -> Log.e("db", "Unable to get all info", error) }))
     }
 
     fun initRatingView(){
