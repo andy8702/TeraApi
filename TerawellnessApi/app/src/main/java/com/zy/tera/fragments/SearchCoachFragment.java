@@ -81,8 +81,7 @@ public class SearchCoachFragment extends BaseFragment {
             public void onClick(View v) {
                 if (null!=coachRateInfo){
                     Intent intent = new Intent(getActivity(), RateSettingActivity.class);
-                    intent.putExtra(RateSettingActivity.FLAG_isRating,RateSettingActivity.FLAG_isRating);
-                    intent.getExtras().putParcelable(RateSettingActivity.FLAG_isRating,coachRateInfo);
+                    intent.putExtra(RateSettingActivity.FLAG_isRating,coachRateInfo);
                     startActivity(intent);
 
                 }else{
