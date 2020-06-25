@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="array_blacklist">
-        <item>顾蓓蓓</item>
-        <item>高钧熙</item>
-        <item>孔品若</item>
-    </string-array>
 
-    <string-array name="array_pending">
-        <item>宋伟伟</item>
-    </string-array>
-
-    <string-array name="array_recommondlist">
-        <item>杨箫</item>
-        <item>黄鑫</item>
-        <item>肖然</item>
-        <item>张磊</item>
-    </string-array>
 </resources>

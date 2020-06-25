@@ -75,6 +75,8 @@ class RateSettingActivity: BaseActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         Toast.makeText(this,R.string.oper_success,Toast.LENGTH_SHORT).show();
+                        val app = application as TeraApplication
+                        app.refreshRateInfo();
                         finish();
                     },
                             { error -> Log.e("db", "Unable to insert", error) }))

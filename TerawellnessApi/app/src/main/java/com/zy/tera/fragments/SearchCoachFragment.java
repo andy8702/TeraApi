@@ -169,6 +169,7 @@ public class SearchCoachFragment extends BaseFragment {
         }
 
         resultAdapter = new CourseAdapter(courseResponse.data.rows);
+        resultAdapter.setContext(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(resultAdapter);

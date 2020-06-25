@@ -18,14 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/blacklist"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone"
-            android:src="@mipmap/blacklist_1" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,37 +30,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_cname"
-                    style="@style/itemstyle_20sp_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="CourseName" />
 
-                <TextView
-                    android:id="@+id/tv_pending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/cardview_dark_background"
-                    android:background="@drawable/textview_border_dark"
-                    android:textSize="16sp"
-                    android:layout_marginRight="10dp"
-                    android:padding="5dp"
-                    android:visibility="gone"
-                    android:text="@string/pending" />
-
-                <TextView
-                    android:id="@+id/tv_recommond"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:background="@drawable/textview_border_red"
-                    android:textSize="16sp"
-                    android:layout_marginRight="10dp"
-                    android:padding="5dp"
-                    android:visibility="gone"
-                    android:text="@string/recommond" />
 
                 <TextView
                     android:id="@+id/tv_tname"
@@ -76,6 +38,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="tname" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar1"
+                    style="@style/myRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="35dp"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_cname"
+                    style="@style/itemstyle_20sp_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="CourseName" />
+
 
 
             </LinearLayout>

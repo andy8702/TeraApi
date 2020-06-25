@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zy.tera.R;
-import com.zy.tera.TeraApplication;
 import com.zy.tera.adapter.CourseAdapter;
 import com.zy.tera.adapter.CourseTypeAdapter;
 import com.zy.tera.adapter.TypeCourseAdapter;
@@ -87,14 +86,10 @@ public class OneCourseFragment extends BaseFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    TeraApplication.FLAG_RECOMMOND = false;
-                    TeraApplication.FLAG_PENDING = false;
-                    TeraApplication.FLAG_BLACKLIST = false;
+
 
                 }else{
-                    TeraApplication.FLAG_RECOMMOND = true;
-                    TeraApplication.FLAG_PENDING = true;
-                    TeraApplication.FLAG_BLACKLIST = true;
+
                 }
                 if (null != resultAdapter){
                     resultAdapter.notifyDataSetChanged();
@@ -152,7 +147,9 @@ public class OneCourseFragment extends BaseFragment {
         }
 
         courseGv.setVisibility(View.GONE);
+
         resultAdapter = new CourseAdapter(response.data.rows);
+        resultAdapter.setContext(getContext());
 
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         resultRv.setLayoutManager(mLayoutManager);
