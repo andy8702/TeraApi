@@ -1,10 +1,11 @@
 package com.zy.tera.adapter;
 
 import android.annotation.SuppressLint;
-import android.graphics.Paint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private OnItemClickListener onItemClickListener;
 
+    private Context context;
+
     public CourseAdapter(List<CourseResponse.CourseInfo.Rows> data) {
         this.mData = data;
     }
@@ -34,6 +37,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+
+    public void setContext(Context context){
+        this.context = context;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,30 +65,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.courseTrainer.setText(row.coachname);
         holder.CourseTimeAddr.setText(row.clubname+"("+row.begindate+" "+TimeUtils.dateToWeek(row.begindate) +" "+row.begintime+")");
 
-        if (null!=TeraApplication.blacklist && TeraApplication.blacklist.contains(row.coachname) && TeraApplication.FLAG_BLACKLIST){
-            holder.blacklist.setVisibility(View.VISIBLE);
-
-            holder.courseName.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
-            holder.courseTrainer.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
-            holder.CourseTimeAddr.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+        if (TeraApplication.ratemap.size()>0 && TeraApplication.ratemap.containsKey(row.coachname)){
+            holder.ratingBar.setVisibility(View.VISIBLE);
+            float f = (float) TeraApplication.ratemap.get(row.coachname);
+            holder.ratingBar.setRating(f);
         }else{
-            holder.blacklist.setVisibility(View.GONE);
-            holder.courseName.getPaint().setFlags(0);
-            holder.courseTrainer.getPaint().setFlags(0);
-            holder.CourseTimeAddr.getPaint().setFlags(0);
+            holder.ratingBar.setVisibility(View.GONE);
         }
 
-        if (null!=TeraApplication.pendingList && TeraApplication.pendingList.contains(row.coachname) && TeraApplication.FLAG_PENDING){
-            holder.pending.setVisibility(View.VISIBLE);
-        }else{
-            holder.pending.setVisibility(View.GONE);
-        }
 
-        if (null!=TeraApplication.recommondlist && TeraApplication.recommondlist.contains(row.coachname) && TeraApplication.FLAG_RECOMMOND){
-            holder.recommond.setVisibility(View.VISIBLE);
-        }else{
-            holder.recommond.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -92,7 +85,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         TextView courseName,courseTrainer,CourseTimeAddr;
         OnItemClickListener onItemClickListener;
-        View layoutItem,blacklist,recommond,pending;
+        View layoutItem;
+        RatingBar ratingBar;
 
         public ViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
@@ -100,9 +94,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             courseTrainer = (TextView) itemView.findViewById(R.id.tv_tname);
             CourseTimeAddr = (TextView) itemView.findViewById(R.id.tv_timeaddr);
             layoutItem = itemView.findViewById(R.id.layout_item);
-            blacklist = itemView.findViewById(R.id.blacklist);
-            recommond = itemView.findViewById(R.id.tv_recommond);
-            pending = itemView.findViewById(R.id.tv_pending);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar1);
 
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
