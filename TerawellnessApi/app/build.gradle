@@ -27,6 +27,12 @@ android {
         experimental = true
     }
     buildToolsVersion = '29.0.2'
+
+    sourceSets { main.java.srcDirs += 'src/main/kotlin'}
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
