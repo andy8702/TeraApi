@@ -1,1 +1,10 @@
 include ':app'
+
+//以下为引入FLUTTER的设置
+setBinding(new Binding([gradle: this]))                                // new
+evaluate(new File(                                                     // new
+        settingsDir.parentFile,                                              // new
+        'TerawellnessApi/flutter_module/.android/include_flutter.groovy'                         // new
+))
+//引入FLUTTER结束
+include ':flutter_module'
