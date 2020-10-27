@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -37,6 +40,9 @@ public class TeraApplication extends Application {
 
     public static Map ratemap = new HashMap<String, Float>();
 
+    private FlutterEngine flutterEngine;
+    public static String FLUTTER_ACTIVITY_ENGINE_ID = "my_engine_id";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +50,23 @@ public class TeraApplication extends Application {
 
         refreshRateInfo();
 
+        initFlutter();
+
+    }
+
+    private void initFlutter(){
+        // Instantiate a FlutterEngine.
+        flutterEngine = new FlutterEngine(this);
+
+        // Start executing Dart code to pre-warm the FlutterEngine.
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+
+        // Cache the FlutterEngine to be used by FlutterActivity.
+        FlutterEngineCache
+                .getInstance()
+                .put(FLUTTER_ACTIVITY_ENGINE_ID, flutterEngine);
     }
 
     public void refreshRateInfo(){
