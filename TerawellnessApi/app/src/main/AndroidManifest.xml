@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- kotlin首页 -->
         <activity android:name="com.zy.kt.tera.pages.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +26,7 @@
         </activity>
         <activity android:name=".ShopCourseDetailActivity" />
 
+        <!-- 老的首页 -->
         <activity android:name=".BottomNavActivity" />
 
         <activity android:name=".MainActivity" />
