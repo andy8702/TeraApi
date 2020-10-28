@@ -2,6 +2,9 @@ package com.zy.tera;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.zy.tera.db.CoachRateInfo;
 import com.zy.tera.db.TeraDatabase;
@@ -18,6 +21,10 @@ import java.util.Map;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.plugins.GeneratedPluginRegistrant;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -50,7 +57,7 @@ public class TeraApplication extends Application {
 
         refreshRateInfo();
 
-        initFlutter();
+//        initFlutter();
 
     }
 
@@ -67,6 +74,19 @@ public class TeraApplication extends Application {
         FlutterEngineCache
                 .getInstance()
                 .put(FLUTTER_ACTIVITY_ENGINE_ID, flutterEngine);
+
+        GeneratedPluginRegistrant.registerWith(flutterEngine);
+        MethodChannel methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), "TeraMC");
+        methodChannel.setMethodCallHandler(new MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+                if (call.method == "single_course"){
+                    Toast.makeText(TeraApplication.this, "single_course", Toast.LENGTH_SHORT).show();
+                }
+                result.success("ok");
+            }
+        });
+
     }
 
     public void refreshRateInfo(){

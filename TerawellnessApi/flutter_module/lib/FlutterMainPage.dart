@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FlutterMainPage extends StatelessWidget {
   final String title;
 
+  static const platform = const MethodChannel('TeraMC');
+
   FlutterMainPage({Key key, this.title}) : super(key: key);
+
+  _startSingleCourseActivity() async {
+    await platform.invokeMethod("single_course");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +71,7 @@ class FlutterMainPage extends StatelessWidget {
             ListTile(
               title: Text("单课查询"),
               leading: CircleAvatar(child: Icon(Icons.golf_course)),
+              onTap: _startSingleCourseActivity,
             ),
             Divider(),
             ListTile(
